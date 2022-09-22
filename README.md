@@ -1,0 +1,4 @@
+Candor Coach Slack App
+=================
+
+
