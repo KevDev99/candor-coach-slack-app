@@ -6,6 +6,8 @@ const submitRoundupChannel = async ({ ack, say, body, client }) => {
 
   const formattedState = formatMessageState(body.state);
 
+  if(!formattedState.channels_select || !formattedState.static_select) return;
+
   // save selected channel id to database
   await updateUser(body.team.id, {
     roundup_channel: formattedState.channels_select,

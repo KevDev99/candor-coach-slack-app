@@ -1,4 +1,3 @@
-const { formatBodyState, formatMessageState } = require("../../helper");
 const { updateTeam } = require("../../database/db.js");
 
 const submitCoreValues = async ({ ack, body, client, say, context }) => {
@@ -88,12 +87,6 @@ const submitCoreValues = async ({ ack, body, client, say, context }) => {
   }
 };
 
-const hasOneEmoji = (str) => {
-  return /^(?:(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff])[\ufe0e\ufe0f]?(?:[\u0300-\u036f\ufe20-\ufe23\u20d0-\u20f0]|\ud83c[\udffb-\udfff])?(?:\u200d(?:[^\ud800-\udfff]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff])[\ufe0e\ufe0f]?(?:[\u0300-\u036f\ufe20-\ufe23\u20d0-\u20f0]|\ud83c[\udffb-\udfff])?)*)$/.test(
-    str
-  );
-};
-
 const formatFormState = (state) => {
   const formState = [];
 
@@ -104,20 +97,25 @@ const formatFormState = (state) => {
   keys.map((key) => {
     const subKey = Object.keys(state.values[key])[0];
 
-    if (subKey.startsWith("plain_text_input")) {
-      formState[subKey] = {
-        value: state.values[key][subKey].value,
+    if (!formState["plain_text_input-action-" + index]) {
+      formState["plain_text_input-action-" + index] = {
+        value: "",
         emoji: "",
         index: 0,
-        number_sent: 0
       };
+    }
+
+    if (subKey.startsWith("plain_text_input")) {
+      formState["plain_text_input-action-" + index].value =
+        state.values[key][subKey].value;
+      if (formState["plain_text_input-action-" + index].emoji !== "") ++index;
     }
 
     if (state.values[key][subKey].type === "static_select") {
       formState["plain_text_input-action-" + index].emoji =
         state.values[key][subKey].selected_option.value;
       formState["plain_text_input-action-" + index].index = index;
-      ++index;
+      if (formState["plain_text_input-action-" + index].value !== "") ++index;
     }
   });
 
