@@ -12,7 +12,6 @@ const enterCoreValues = async ({ ack, say, body, client }) => {
 
   const index = 1;
 
-
   const viewBlock = [
     ...(await coreValueItemBlock(index, numberCompanyValues, client)),
   ];
@@ -57,7 +56,12 @@ const enterCoreValues = async ({ ack, say, body, client }) => {
   }
 };
 
-const coreValueItemBlock = async (index, numberCompanyValues, client) => {
+const coreValueItemBlock = async (
+  index,
+  numberCompanyValues,
+  client,
+  initialValueObject = undefined
+) => {
   const coreItemBlock = [];
   const { emoji: workspaceEmojis } = await client.emoji.list();
 
@@ -110,7 +114,20 @@ const coreValueItemBlock = async (index, numberCompanyValues, client) => {
     });
   });
 
-  if (numberCompanyValues > index) {
+  if (initialValueObject) {
+   
+    coreItemBlock[0].element.initial_value = initialValueObject.value;
+    coreItemBlock[1].elements[0].initial_option = {
+      text: {
+        type: "plain_text",
+        text: `:${initialValueObject.emoji}: - ${initialValueObject.emoji}`,
+        emoji: true,
+      },
+      value: initialValueObject.emoji,
+    };
+  }
+
+  if (!initialValueObject && numberCompanyValues > index) {
     coreItemBlock.push({
       type: "actions",
       block_id: "next-button",

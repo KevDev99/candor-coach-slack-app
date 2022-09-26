@@ -1,9 +1,21 @@
-const { updateTeam } = require("../../database/db.js");
+const {
+  formatBodyState,
+  formatMessageState,
+  weekdays,
+} = require("../../helper");
+const { updateTeam, getTeamInformation } = require("../../database/db.js");
 
 const submitCoreValues = async ({ ack, body, client, say, context }) => {
   try {
     const [index, numberCompanyValues, channelId, messageTs] =
       body.view.private_metadata.split(";");
+
+    // team informations for message needed
+    const teamChannelId = await getTeamInformation(
+      body.team.id,
+      "roundup_channel"
+    );
+    const teamWeekday = await getTeamInformation(body.team.id, "roundup_day");
 
     // format state
     const formatted_state = formatFormState(body.view.state);
@@ -32,56 +44,110 @@ const submitCoreValues = async ({ ack, body, client, say, context }) => {
 
     updateTeam(body.team.id, { core_values });
 
-    // update message
-    await client.chat.update({
-      channel: channelId,
-      ts: messageTs,
-      text: "Congratulations you’ve taken the first step in culture-building!!",
-      blocks: [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "*Congratulations you’ve taken the first step in culture-building!!*",
+    // if message ts and channel id provided -> update a message
+    if (messageTs && channelId) {
+      // update message
+      await client.chat.update({
+        channel: channelId,
+        ts: messageTs,
+        text: "Congratulations you’ve taken the first step in culture-building!!",
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Congratulations you’ve taken the first step in culture-building!!*",
+            },
           },
-        },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "Here is a quick recap:\n\nWe’ve defined our core values as below and given each a correlating emoji: ",
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "Here is a quick recap:\n\nWe’ve defined our core values as below and given each a correlating emoji: ",
+            },
           },
-        },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: responseText,
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: responseText,
+            },
           },
-        },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "Every time someone receives a value emoji or gives one, we will record the results",
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "Feel free to edit them whenever you want:",
+            },
           },
-        },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "Every week I’ll send a roundup to #channel with the following stats:",
+          {
+            type: "actions",
+            elements: [
+              {
+                type: "button",
+                text: {
+                  type: "plain_text",
+                  text: "Edit Core Values",
+                  emoji: true,
+                },
+                value: "edit_core_values_btn",
+                action_id: "edit_core_values",
+              },
+            ],
           },
-        },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "1. The team’s most lived value\n2. The person who was MVP (received the most core values shoutouts)\n3. Summary of core values celebrated across all team members",
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "Every time someone receives a value emoji or gives one, we will record the results",
+            },
           },
-        },
-      ],
-    });
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `Every week on ${weekdays[teamWeekday]} I'll send a roundup to <#${teamChannelId}> with the following stats:`,
+            },
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "1. The team’s most lived value\n2. The person who was MVP (received the most core values shoutouts)\n3. Summary of core values celebrated across all team members",
+            },
+          },
+        ],
+      });
+    } else {
+      // else send new message to user
+      await client.chat.postMessage({
+        channel: body.user.id,
+        text: "Core Values Updated",
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "*Your core values have been successfully updated*",
+            },
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "Here is an overview of the updated core values:\n\n ",
+            },
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: responseText,
+            },
+          },
+        ],
+      });
+    }
   } catch (error) {
     console.error(error);
   }

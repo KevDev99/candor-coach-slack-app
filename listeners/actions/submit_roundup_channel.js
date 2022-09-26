@@ -1,33 +1,35 @@
 const { updateUser, getTeamInformation } = require("../../database/db.js");
-const { formatMessageState } = require("../../helper");
+const { formatMessageState , weekdays} = require("../../helper");
+
 
 const submitRoundupChannel = async ({ ack, say, body, client }) => {
   await ack();
 
   const formattedState = formatMessageState(body.state);
 
-  if(!formattedState.channels_select || !formattedState.static_select) return;
+  if (!formattedState.channels_select || !formattedState.static_select) return;
 
   // save selected channel id to database
   await updateUser(body.team.id, {
     roundup_channel: formattedState.channels_select,
     roundup_day: formattedState.static_select,
   });
-  
+
   // get bot and user details from installation
-  const installationUserToken = await getTeamInformation(body.team.id, 'user.token');
-  const botUserId = await getTeamInformation(body.team.id, 'bot.userId');
-  
+  const installationUserToken = await getTeamInformation(
+    body.team.id,
+    "user.token"
+  );
+  const botUserId = await getTeamInformation(body.team.id, "bot.userId");
+
   // invite bot to channel
   try {
     client.conversations.invite({
       channel: formattedState.channels_select,
       users: botUserId,
-      token: installationUserToken
-    })
-  } catch(err) {
-    
-  }
+      token: installationUserToken,
+    });
+  } catch (err) {}
 
   // update message
   await client.chat.update({
@@ -52,7 +54,7 @@ const submitRoundupChannel = async ({ ack, say, body, client }) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "*We’ll send your roundup to this channel,  on your selected weekday!*",
+          text: `*We’ll send the roundup message every ${weekdays[formattedState.static_select]} in <#${formattedState.channels_select}> *`,
         },
       },
     ],
