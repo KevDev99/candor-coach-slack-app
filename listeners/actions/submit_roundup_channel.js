@@ -29,7 +29,9 @@ const submitRoundupChannel = async ({ ack, say, body, client }) => {
       users: botUserId,
       token: installationUserToken,
     });
-  } catch (err) {}
+  } catch (err) {
+    
+  }
 
   // update message
   await client.chat.update({

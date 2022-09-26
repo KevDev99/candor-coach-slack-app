@@ -49,8 +49,12 @@ const insertAt = (array, index, ...elementsArray) => {
   array.splice(index, 0, ...elementsArray);
 };
 
+const weekdays = {"MON": "Monday", "TUE": "Tuesday", "WED": "Wednesday", "THU": "Thursday", "FRI": "Friday", "SAT": "Saturday", "SUN": "Sunday"}
+
+
 module.exports = {
   formatBodyState,
   formatMessageState,
   insertAt,
+  weekdays
 };
