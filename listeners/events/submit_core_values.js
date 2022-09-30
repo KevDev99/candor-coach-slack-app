@@ -93,6 +93,16 @@ const submitCoreValues = async ({ ack, body, client, say, context }) => {
                 value: "edit_core_values_btn",
                 action_id: "edit_core_values",
               },
+              {
+                type: "button",
+                text: {
+                  type: "plain_text",
+                  text: "Edit Settings",
+                  emoji: true,
+                },
+                value: "edit_settings_btn",
+                action_id: "edit_settings",
+              },
             ],
           },
           {

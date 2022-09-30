@@ -1,6 +1,7 @@
 const { messages } = require("./messages.js");
 const { submitCompanyValues } = require("./submit_company_values.js");
 const { submitCoreValues } = require("./submit_core_values.js");
+const { submitSettings } = require("./submit_settings.js");
 
 const { getTeams, countEmoji } = require("../../database/db.js");
 
@@ -10,6 +11,8 @@ module.exports.register = (app) => {
   app.event("messages", messages);
   app.view("submit_company_values", submitCompanyValues);
   app.view("submit_core_values", submitCoreValues);
+  app.view("submit_settings", submitSettings);
+
   registerListenerForTeamEmojis(app);
 };
 
