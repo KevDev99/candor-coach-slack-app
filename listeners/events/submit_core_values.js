@@ -2,6 +2,7 @@ const {
   formatBodyState,
   formatMessageState,
   weekdays,
+  hours,
 } = require("../../helper");
 const { updateTeam, getTeamInformation } = require("../../database/db.js");
 
@@ -16,6 +17,7 @@ const submitCoreValues = async ({ ack, body, client, say, context }) => {
       "roundup_channel"
     );
     const teamWeekday = await getTeamInformation(body.team.id, "roundup_day");
+    const teamHour = await getTeamInformation(body.team.id, "roundup_hour");
 
     // format state
     const formatted_state = formatFormState(body.view.state);
@@ -77,7 +79,7 @@ const submitCoreValues = async ({ ack, body, client, say, context }) => {
             type: "section",
             text: {
               type: "mrkdwn",
-              text: "Feel free to edit them whenever you want:",
+              text: "Feel free to edit your settings and core values whenever you want:",
             },
           },
           {
@@ -116,7 +118,7 @@ const submitCoreValues = async ({ ack, body, client, say, context }) => {
             type: "section",
             text: {
               type: "mrkdwn",
-              text: `Every week on ${weekdays[teamWeekday]} I'll send a roundup to <#${teamChannelId}> with the following stats:`,
+              text: `Every week on ${weekdays[teamWeekday]} at ${hours[teamHour]} I'll send a roundup to <#${teamChannelId}> with the following stats:`,
             },
           },
           {

@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema(
     authVersion: String,
     roundup_channel: String,
     roundup_day: String,
+    roundup_hour: Number,
     number_company_values: Number,
     core_values: [],
     bot: {

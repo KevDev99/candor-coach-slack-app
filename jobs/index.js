@@ -10,38 +10,52 @@ const sendRoundUpMessage = async () => {
   const teams = await getTeams({ "core_values.0": { $exists: true } });
 
   teams.map(async (team) => {
+    // get timezone of installation user
+
+    const { data } = await axios.post(
+      "https://slack.com/api/users.info",
+      new URLSearchParams({ user: team.user.id, token: team.bot.token })
+    );
+
+    const timezone = data.user.tz;
+
     try {
       if (team.roundup_channel) {
-        
-        cron.schedule(`00 10 * * ${team.roundup_day}`, async () => {
-          // get all
-          const metrics = await getEmojiMetrics(team._id);
-          if (!metrics) {
-            return;
-          }
+        cron.schedule(
+          `00 ${team.roundup_hour ?? 10} * * ${team.roundup_day}`,
+          async () => {
+            // get all
+            const metrics = await getEmojiMetrics(team._id);
+            if (!metrics) {
+              return;
+            }
 
-          const roundUpBlock = roundUpMessageBody(metrics);
+            const roundUpBlock = roundUpMessageBody(metrics);
 
-          try {
-            // send roundup message
-            const res = await axios.post(
-              "https://slack.com/api/chat.postMessage",
-              {
-                text: "Weekly Roundup",
-                channel: team.roundup_channel,
-                blocks: roundUpBlock,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${team.bot.token}`,
+            try {
+              // send roundup message
+              const res = await axios.post(
+                "https://slack.com/api/chat.postMessage",
+                {
+                  text: "Weekly Roundup",
+                  channel: team.roundup_channel,
+                  blocks: roundUpBlock,
                 },
-              }
-            );
-            
-          } catch (error) {
-            console.error(error);
+                {
+                  headers: {
+                    Authorization: `Bearer ${team.bot.token}`,
+                  },
+                }
+              );
+            } catch (error) {
+              console.error(error);
+            }
+          },
+          {
+            timezone: timezone,
+            scheduled: true,
           }
-        });
+        );
       }
     } catch (error) {
       console.error(error);
