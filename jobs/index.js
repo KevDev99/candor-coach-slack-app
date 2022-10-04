@@ -22,7 +22,7 @@ const sendRoundUpMessage = async () => {
     try {
       if (team.roundup_channel) {
         cron.schedule(
-          `38 ${team.roundup_hour ?? 10} * * ${team.roundup_day}`,
+          `00 ${team.roundup_hour ?? 10} * * ${team.roundup_day}`,
           async () => {
             // get all
             const metrics = await getEmojiMetrics(team._id);

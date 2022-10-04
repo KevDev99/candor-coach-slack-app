@@ -38,13 +38,16 @@ const submitCoreValues = async ({ ack, body, client, say, context }) => {
 
     // save core values to database
     const core_values = [];
+    const emojis = [];
     Object.keys(formatted_state).map((coreValueKey) => {
       const coreValue = formatted_state[coreValueKey];
       core_values.push(coreValue);
       responseText += `:${coreValue.emoji}:` + " " + coreValue.value + "\n";
+      emojis.push(coreValue.emoji);
     });
 
-    updateTeam(body.team.id, { core_values });
+    // remove emojis which are not in the updated list
+    await removeEmojisNotInList(body.team.id, emojis);
 
     // if message ts and channel id provided -> update a message
     if (messageTs && channelId) {

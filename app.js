@@ -2,7 +2,7 @@ const { App } = require("@slack/bolt");
 
 const { connect, getUser, addUser, fetchUsers } = require("./database/db.js");
 
-const registerJobs = require('./jobs')
+const registerJobs = require("./jobs");
 
 const {
   saveUserWorkspaceInstall,
@@ -70,8 +70,23 @@ const app = new App({
   },
   installerOptions: {
     directInstall: true,
-    userScopes: ["channels:history", "groups:history", "im:history", "channels:write"]
+    userScopes: [
+      "channels:history",
+      "groups:history",
+      "im:history",
+      "channels:write",
+    ],
   },
+  customRoutes: [
+    {
+      path: "/",
+      method: ["GET"],
+      handler: (req, res) => {
+        res.writeHead(200);
+        res.end("Endpoint working OK");
+      },
+    },
+  ],
 });
 
 // connect to db

@@ -298,6 +298,15 @@ const getEmojiMetrics = async function (teamId) {
   }
 };
 
+const removeEmojisNotInList = async (teamId, emojisList) => {
+  const emojis = await Emoji.deleteMany({
+    emoji: { $not: { $in: emojisList } },
+    team_id: teamId,
+  });
+
+  return emojis;
+};
+
 module.exports = {
   connect,
   getUser,
@@ -309,4 +318,5 @@ module.exports = {
   getTeams,
   countEmoji,
   getEmojiMetrics,
+  removeEmojisNotInList,
 };
