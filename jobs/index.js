@@ -10,6 +10,7 @@ const sendRoundUpMessage = async () => {
   const teams = await getTeams({ "core_values.0": { $exists: true } });
 
   teams.map(async (team) => {
+    console.log(team);
     // get timezone of installation user
 
     const { data } = await axios.post(
@@ -22,7 +23,7 @@ const sendRoundUpMessage = async () => {
     try {
       if (team.roundup_channel) {
         cron.schedule(
-          `00 ${team.roundup_hour ?? 10} * * ${team.roundup_day}`,
+          `46 ${team.roundup_hour ?? 10} * * ${team.roundup_day}`,
           async () => {
             // get all
             const metrics = await getEmojiMetrics(team._id);
