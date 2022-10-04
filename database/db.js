@@ -254,6 +254,9 @@ const getEmojiMetrics = async function (teamId) {
         const coreValueIndex = await coreValues.findIndex(
           (coreValue) => coreValue.emoji == emojiItem._id
         );
+
+        console.log(coreValues)
+        console.log(allEmojisGrouped)
         summaryItem.value = coreValues[coreValueIndex].value;
 
         // get list of users using that emoji
