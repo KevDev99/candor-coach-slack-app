@@ -1,0 +1,384 @@
+[
+    {
+      "name": "drink-water",
+      "text": "🥛 Drink Water",
+      "inputBlock": [
+        {
+          "type": "input",
+          "element": {
+            "type": "static_select",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "set your target cups",
+              "emoji": true
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "1 cup",
+                  "emoji": true
+                },
+                "value": "1"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "2 cups",
+                  "emoji": true
+                },
+                "value": "2"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "3 cups",
+                  "emoji": true
+                },
+                "value": "3"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "4 cups",
+                  "emoji": true
+                },
+                "value": "4 cups"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "5 cups",
+                  "emoji": true
+                },
+                "value": "5"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "6 cups",
+                  "emoji": true
+                },
+                "value": "6"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "7 cups",
+                  "emoji": true
+                },
+                "value": "7"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "8 cups",
+                  "emoji": true
+                },
+                "value": "8"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "9 cups",
+                  "emoji": true
+                },
+                "value": "9"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "10 cups",
+                  "emoji": true
+                },
+                "value": "10"
+              }
+            ],
+            "action_id": "target_cups"
+          },
+          "label": {
+            "type": "plain_text",
+            "text": "Target Cups",
+            "emoji": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "get-steps-in",
+      "text": "🦶 Get steps in",
+      "inputBlock": [
+        {
+          "type": "input",
+          "element": {
+            "type": "static_select",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "set your target steps",
+              "emoji": true
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "1000 steps",
+                  "emoji": true
+                },
+                "value": "1000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "2000 steps",
+                  "emoji": true
+                },
+                "value": "2000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "3000 steps",
+                  "emoji": true
+                },
+                "value": "3000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "5000 steps",
+                  "emoji": true
+                },
+                "value": "5000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "6000 steps",
+                  "emoji": true
+                },
+                "value": "6000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "7000 steps",
+                  "emoji": true
+                },
+                "value": "7000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "8000 steps",
+                  "emoji": true
+                },
+                "value": "8000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "9000 steps",
+                  "emoji": true
+                },
+                "value": "9000"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "10000 steps",
+                  "emoji": true
+                },
+                "value": "10000"
+              }
+            ],
+            "action_id": "target_steps"
+          },
+          "label": {
+            "type": "plain_text",
+            "text": "Target Steps",
+            "emoji": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "movement-snack",
+      "text": "🤸‍♂️ Movement snack",
+      "inputBlock": [
+        {
+          "type": "input",
+          "element": {
+            "type": "static_select",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "set your movement",
+              "emoji": true
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "25 push-ups",
+                  "emoji": true
+                },
+                "value": "25 push-ups"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "50 push-ups",
+                  "emoji": true
+                },
+                "value": "50 push-ups"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "15 airsquats",
+                  "emoji": true
+                },
+                "value": "15 airsquats"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "1 minute plank",
+                  "emoji": true
+                },
+                "value": "1 minute plank"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "30 alternating reverse lunges",
+                  "emoji": true
+                },
+                "value": "30 alternating reverse lunges"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "50 push-ups",
+                  "emoji": true
+                },
+                "value": "50 push-ups"
+              }
+            ],
+            "action_id": "target_movement"
+          },
+          "label": {
+            "type": "plain_text",
+            "text": "Your Movement",
+            "emoji": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "mindfulness-activity",
+      "text": "🧠 Mindfulness activity",
+      "inputBlock": [
+        {
+          "type": "input",
+          "element": {
+            "type": "static_select",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "set your activity",
+              "emoji": true
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "journal for 10 minutes",
+                  "emoji": true
+                },
+                "value": "journal for 10 minutes"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "meditate for 5 minutes",
+                  "emoji": true
+                },
+                "value": "meditate for 5 minutes"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "meditate for 10 minutes",
+                  "emoji": true
+                },
+                "value": "meditate for 10 minutes"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "do 5 minutes of breathing exercises",
+                  "emoji": true
+                },
+                "value": "do 5 minutes of breathing exercises"
+              }
+            ],
+            "action_id": "target_activity"
+          },
+          "label": {
+            "type": "plain_text",
+            "text": "Your Mindful Activity",
+            "emoji": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "make-balanced-meals",
+      "text": "🍱 Make balanced meals",
+      "inputBlock": [
+        {
+          "type": "input",
+          "element": {
+            "type": "static_select",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "set your meal",
+              "emoji": true
+            },
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "add protein to every meal",
+                  "emoji": true
+                },
+                "value": "add protein to every meal"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "add a new vegetable to a meal",
+                  "emoji": true
+                },
+                "value": "add a new vegetable to a meal"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": "try a new recipe",
+                  "emoji": true
+                },
+                "value": "try a new recipe"
+              }
+            ],
+            "action_id": "target_meal"
+          },
+          "label": {
+            "type": "plain_text",
+            "text": "Your Balanced Meal",
+            "emoji": true
+          }
+        }
+      ]
+    }
+  ]
+  
