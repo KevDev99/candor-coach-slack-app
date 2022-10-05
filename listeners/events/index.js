@@ -33,15 +33,7 @@ const registerListenerForTeamEmojis = async (app) => {
             }
           }
 
-          // check if there is a mention to in the message
-          const matched = userMentionedRegex.exec(message.text);
-          let mention_to_id = undefined;
-          if (matched && matched.length > 0) {
-            const user_id = matched[1];
-            if (user_id !== message.user) {
-              mention_to_id = user_id;
-            }
-          }
+          
 
           // check if user is bot user
           const {
